@@ -20,9 +20,9 @@
     Note: When using Leandix AI, selected business data (such as chat prompts, relevant model fields, or context-specific metadata) will be securely transmitted to a remote AI processing server (via API) for analysis and response generation. This allows AI services to understand your context and deliver accurate results.
         """,
     'category': 'Extra Tools',
-    'author': 'CanhCamsSolutions',
-    'company': 'CanhCamsSolutions',
-    'maintainer': 'CanhCamsSolutions',
+    'author': 'Canh Cam Solutions',
+    'company': 'Canh Cam Solutions',
+    'maintainer': 'Canh Cam Solutions',
     'website': 'https://leandix.com',
     'depends': ['base','web','base_setup'],
     'data': [
