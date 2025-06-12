@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_form_debugging_leandix_ai_chat_history" model="ir.ui.view">
+        <field name="name">leandix.ai.chat.history.form</field>
+        <field name="model">leandix.ai.chat.history</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="user"/>
+                        <field name="messages">
+                            <list>
+                                <field name="message"/>
+                                <field name="role"/>
+                            </list>
+                        </field>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_list_debugging_leandix_ai_chat_history" model="ir.ui.view">
+        <field name="name">leandix.ai.chat.history.list</field>
+        <field name="model">leandix.ai.chat.history</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="user"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_debugging_leandix_ai_chat_history" model="ir.actions.act_window">
+        <field name="name">debugging</field>
+        <field name="res_model">leandix.ai.chat.history</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_list_debugging_leandix_ai_chat_history"/>
+    </record>
+
+    <record id="action_debugging_leandix_ai_chat_history_view_list" model="ir.actions.act_window.view">
+        <field name="sequence" eval="0"/>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_list_debugging_leandix_ai_chat_history"/>
+        <field name="act_window_id" ref="action_debugging_leandix_ai_chat_history"/>
+    </record>
+    <record id="action_debugging_leandix_ai_chat_history_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_form_debugging_leandix_ai_chat_history"/>
+        <field name="act_window_id" ref="action_debugging_leandix_ai_chat_history"/>
+    </record>
+
+</odoo> 

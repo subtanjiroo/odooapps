@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="leandix_ai.template_chat" t-inherit="web.FormView">
+        <xpath expr="//Layout" position="replace">
+            <div class="my_chat_container">
+                <!-- Sidebar -->
+                <aside class="sidebar" id="side_bar">
+                    <div class="sidebar_header">
+                        <span class="sb1">
+                            <img class="logo" t-on-click="toggleSidebar" src="/leandix_ai/static/img/menu_btn.png" alt="Leandix AI"/>
+                        </span>
+                        <span class="sb2">
+                            <img class="logo" t-on-click="delete_function_effect" id="delete_btn" src="/leandix_ai/static/img/delete_btn.png" alt="Leandix AI"/>
+                            <img class="logo" t-on-click="new_conversation" src="/leandix_ai/static/img/create_btn.png" alt="Leandix AI"/>
+                            <img class="logo" id="search_btn" t-on-click="show_setting_panel_toggle" src="/leandix_ai/static/img/search_btn.png" alt="Leandix AI"/>
+                        </span>
+                    </div>
+                    <div id="setting_pannel" class="setting_pannel">
+                        <!-- search function -->
+                        <div class="search_div"><input t-on-input="search_function" class="my_search_input" placeholder="Tìm Kiếm ?"/></div>
+                    </div>
+                    <div class="conversation-list">
+                        <div id="conversation_list_header" class="conversation_list_header">
+                            <!-- history and time -->
+                        </div>
+                        <!-- delete function -->
+                        <div class="delete_pannel">
+                            <div class="div_cofirm_delete_btn" t-on-click="delete_comfirm">
+                                <img class="logo" id="cofirm_delete_btn" src="/leandix_ai/static/img/cofirm_btn.png" alt="Leandix AI"/>
+                            </div>
+                            <div class="div_cancle_delete_btn" t-on-click="delete_cancle">
+                                <img class="logo" id="cancle_delete_btn" src="/leandix_ai/static/img/close_btn.png" alt="Leandix AI"/>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+                <div class="chat_container">
+                    <div class="chat_container_header">
+                        <div id="sidebar_header2" class="sidebar_header2">
+                            <img class="logo" t-on-click="toggleSidebar" src="/leandix_ai/static/img/menu_btn.png" alt="Leandix AI"/>
+                            <img class="logo" t-on-click="new_conversation" src="/leandix_ai/static/img/create_btn.png" alt="Leandix AI"/>
+                        </div>
+
+                        <!-- Chat model here -->
+                        <h2 id="chat_model" class="conversation_title">
+                            GPT-4.1
+                            <!-- <div class="select-wrapper">
+                                <div t-on-click="render_dropdown" id="selected_model">GPT-4.1</div>
+                                <div id="select-options" class="select-options">
+                                    <div class="option" data-value="chat_gpt_mini_o4">ChatGPT-4o</div>
+                                    <div class="option" data-value="deep_seak">DeepSeek</div>
+                                    <div class="option" data-value="grok">Llama 3</div>
+                                </div>
+                            </div> -->
+                        </h2>
+                        <!-- Toggle switch -->
+                        <!-- <div class="toggle-container">
+                            <label class="switch">
+                                <input type="checkbox" t-on-click="onToggleFeature"/>
+                                <span class="slider round"></span>
+                            </label>
+                            <span class="toggle-label">Tính năng Phân Tích Dữ Liệu</span>
+                        </div> -->
+
+                    </div>
+                    <div id="chat_container_content" class="chat_container_content">
+                        <div class="chat_container_body" id="chat_container_body">
+                            <!-- chat appear here -->
+                            
+                        </div>
+                        <t t-raw="0">
+                            <script>
+                                window.MathJax = {
+                                    tex: {
+                                        inlineMath: [['$', '$'], ['\\(', '\\)']],
+                                        displayMath: [['\\[', '\\]'], ['$$', '$$']]
+                                    },
+                                    svg: { fontCache: 'global' }
+                                };
+                            </script>
+                            <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async="true"></script>
+                        </t>
+                        <style>
+                            .thinking {
+                                font-size: 15px;
+                                font-weight: bold;
+                                display: flex;
+                                align-items: center;
+                                gap: 5px;
+                                display: none;
+                                padding-left: 5px;
+                            }
+
+                            .thinking span {
+                                opacity: 0.3;
+                                transition: opacity 0.3s ease-in-out;
+                            }
+                        </style>
+                        <div class="chat-input-area">
+                            <div class="thinking">
+                                Thinking
+                                <span>.</span>
+                                <span>.</span>
+                                <span>.</span>
+                            </div>
+                            <div class="text-input-area">
+                                <textarea class="chat_text" placeholder="Ask anything" t-on-input="autoExpand" t-on-keydown="handleKeyDown"></textarea>
+                                <button class="chat_send_button" t-on-click="sendMessage">SEND</button>           
+                            </div>
+                            <div style="display:none;" class="quick-action-area">
+                                <button t-on-click="hide_something" class="quick-action-button">example 1</button>
+                                <button t-on-click="hide_something" class="quick-action-button">example 2</button>
+                                <button t-on-click="hide_something" class="quick-action-button">example 3</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+
+
+                </div>
+
+
+        </div>
+        </xpath>
+    </t>
+</templates>
