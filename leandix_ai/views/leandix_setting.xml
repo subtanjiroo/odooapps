@@ -1,0 +1,49 @@
+<odoo>
+  <record id="view_leandix_settings" model="ir.ui.view">
+    <field name="name">leandix.ai.settings.form</field>
+    <field name="model">res.config.settings</field>
+    <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//form" position="inside">
+        <app string="Leandix AI" name="leandix_ai">
+          <block title="Leandix AI Settings" class="mt-0" name="leandix_ai_block">
+            <setting class="mt-0">
+                <span class="o_form_label"><span searchabletext="API Key">API Key</span></span>
+                <div class="text-muted">
+                    Nhập API Key của Leandix AI Tại Đấy, Nếu bạn chưa có API Key, hãy đăng ký tại
+                    <a href="https://leandix.com" target="_blank" rel="noopener noreferrer">Leandix AI</a>.
+                </div>
+              <field name="leandix_api_key"/>
+              <div> </div>
+              <!-- Nút Reset API Key -->
+              <button string="Reset API Key"
+                      type="object"
+                      name="action_reset_leandix_api_key"
+                      class="btn-secondary mt-1"/>
+            </setting>
+          </block>
+        </app>
+      </xpath>
+    </field>
+  </record>
+    <!-- Action -->
+    <record id="action_leandix_config_settings" model="ir.actions.act_window">
+        <field name="name">Leandix AI Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_leandix_settings"/>
+        <field name="target">inline</field>
+    </record>
+
+    <!-- Menu: Settings under Leandix AI -->
+    <menuitem id="menu_leandix_ai" name="Leandix AI"
+              web_icon="/static/description/icon.png"
+              sequence="1"/>
+
+    <menuitem id="menu_leandix_ai_settings"
+              name="Settings"
+              parent="menu_leandix_ai"
+              action="action_leandix_config_settings"
+              sequence="99"
+              groups="base.group_system"/>
+</odoo>

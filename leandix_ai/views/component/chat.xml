@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <templates>
+        <t t-name="chat">
+            <div> hello world</div>
+<!--            <main id="chat" class="chat">-->
+<!--                <div class="chat_container">-->
+
+<!--                </div>-->
+<!--                <div class="chat-input">-->
+<!--                    <input type="text" placeholder="Ask anything"/>-->
+<!--                    <div>🎤</div>-->
+<!--                </div>-->
+<!--                <div class="quick-actions">-->
+<!--                </div>-->
+<!--            </main>-->
+        </t>
+    </templates>
+</odoo>
+
