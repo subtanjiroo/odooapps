@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?> 
 <odoo>
     <menuitem id="menu_leandix_ai" web_icon="leandix_ai,static/description/icon.png"  name="Leandix AI" sequence="1">
         <menuitem id="menu_leandix_ai_chat" name="Chat" action="action_leandix_ai_chat_history" sequence="1"></menuitem>
     </menuitem>
-
 </odoo> 

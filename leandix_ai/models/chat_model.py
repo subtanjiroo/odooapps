@@ -23,8 +23,9 @@ import logging
 import time
 import urllib.request
 _logger = logging.getLogger(__name__)
-#localhost_server: http://leandix_ai-ai_engine-back_end-1:5000
-enviroment_api = "http://leandix_ai-ai_engine-back_end-1:5000"
+import io
+
+enviroment_api = "https://api.leandix.com"
 class chat_model(models.Model):
     _name = 'leandix.ai.chat.model'
     _description = 'chat function in here'
@@ -55,6 +56,9 @@ class chat_model(models.Model):
         try:
             # Get User API_key for Server
             API_key = self.env["ir.config_parameter"].sudo().get_param("API_key")
+            # Get User Language
+            user_lang_data = self.get_current_user_lang()
+            user_lang = user_lang_data.get("lang", "en_US")
             api_url = f"{enviroment_api}/chat"
             payload = {
                 "message": message,
@@ -63,6 +67,7 @@ class chat_model(models.Model):
                 "user_id": user_id,
                 "API_key": API_key,
                 "error": error or 'None',
+                "lang": user_lang,
             }
             data_bytes = json.dumps(payload).encode('utf-8')
             req = urllib.request.Request(api_url, data=data_bytes, headers={
@@ -103,6 +108,59 @@ class chat_model(models.Model):
         except Exception as e:
             _logger.error(f"Error in send_message_to_engine_api: {e}")
             return {"error": str(e)}
+
+    # def send_message_to_engine_api(self, message, history, chat_model, user_id, error=None):
+    #     try:
+    #         # Lấy API key và ngôn ngữ
+    #         API_key = self.env["ir.config_parameter"].sudo().get_param("API_key")
+    #         user_lang_data = self.get_current_user_lang()
+    #         user_lang = user_lang_data.get("lang", "en_US")
+    #         api_url = f"{enviroment_api}/chat"
+
+    #         # Chuẩn bị payload
+    #         payload = {
+    #             "message": message,
+    #             "history": history or 'Tạm Thời Chưa Có History',
+    #             "chat_model": chat_model,
+    #             "user_id": user_id,
+    #             "API_key": API_key,
+    #             "error": error or 'None',
+    #             "lang": user_lang,
+    #         }
+
+    #         data_bytes = json.dumps(payload).encode('utf-8')
+    #         req = urllib.request.Request(api_url, data=data_bytes, headers={
+    #             "Content-Type": "application/json",
+    #             "User-Agent": "Mozilla/5.0",
+    #         }, method="POST")
+
+    #         # Mở stream
+    #         with urllib.request.urlopen(req, timeout=120) as response:
+    #             result_text = ""
+    #             for chunk in response:
+    #                 decoded = chunk.decode("utf-8")
+    #                 result_text += decoded
+    #                 _logger.info(f"streaming chunk: {decoded}")
+    #                 # Bạn có thể xử lý từng đoạn ở đây nếu muốn
+    #                 # yield decoded  # nếu muốn gọi như generator
+
+    #         return {
+    #             "message": result_text,
+    #             "status": 200
+    #         }
+
+    #     except urllib.error.HTTPError as e:
+    #         if e.code == 401:
+    #             return 'API_KEY_INVALID'
+    #         if e.code == 402:
+    #             return 'DEMO_REACHED'
+    #         _logger.error(f"HTTPError in send_message_to_engine_api: {e}")
+    #         return {"error": f"HTTPError: {e.code} - {e.reason}"}
+
+    #     except Exception as e:
+    #         _logger.error(f"Error in send_message_to_engine_api: {e}")
+    #         return {"error": str(e)}
+
 
     # This funtion will make the data look Pretier for the user when they dont agree to use the analytics function
     @api.model
@@ -231,8 +289,11 @@ class chat_model(models.Model):
 
             return '\n'.join(html_lines)
 
+
         try:
             API_key = self.env["ir.config_parameter"].sudo().get_param("API_key")
+            user_lang_data = self.get_current_user_lang()
+            user_lang = user_lang_data.get("lang", "en_US")
             api_url = f"{enviroment_api}/answer"
             payload = {
                 "message": message,
@@ -242,6 +303,7 @@ class chat_model(models.Model):
                 "user_id": uid,
                 "history": history or "Tạm Thời Chưa Có history vì đây là tin nhắn đầu tiên",
                 "API_key": API_key,
+                "lang": user_lang,
             }
             data_bytes = json.dumps(payload).encode('utf-8')
 
@@ -435,7 +497,7 @@ class chat_model(models.Model):
 
                     has_access, message = check_user_access_rights(tables, sql_command, current_user_id)
                     if not has_access:
-                        return {"error": message}
+                        return {"Permissions Denied": message}
 
                     if sql_command == "SELECT":
                         self.env.cr.execute("""
@@ -465,9 +527,11 @@ class chat_model(models.Model):
                             rules = self.env.cr.fetchall()
 
                             domain_list = [rule[0].replace(" ", "").replace('"', "'") for rule in rules if rule[0]]
-                            has_full_access = any(domain == "[(1,'=',1)]" for domain in domain_list)
-
-                            if not has_full_access and i == 0:
+                            logging.info(f"domain_list: {domain_list}")
+                            has_full_access = any(domain == "[('user_id', '=', user.id)]" for domain in domain_list)
+                            logging.info(f"has_full_access: {has_full_access}")
+                            # if not has_full_access i == 0:
+                            if not has_full_access and domain_list == ["[('user_id','=',user.id)]"]:
                                 self.env.cr.execute("""
                                     SELECT column_name
                                     FROM information_schema.columns

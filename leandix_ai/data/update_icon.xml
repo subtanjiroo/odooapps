@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Gọi hàm cập nhật icon -->
+        <!-- vì ở bản odoo hiện tại chưa có thuộc tính gọi method sau khi upgrade module nên cần gọi 1 file xml qua manifest để gọi method cập nhật lại logo sau khi upgrade -->
+        <function model="leandix.ai.menu.icon.updater" name="update_menu_icon"/>
+    </data>
+</odoo>

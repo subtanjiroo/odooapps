@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_form_leandix_ai_chat_history" model="ir.ui.view">
-        <field name="name">leandix.ai.chat.history.form</field>
-        <field name="model">leandix.ai.chat.history</field>
-        <field name="arch" type="xml">
-            <form js_class="chat_test_leandix" >
+    <data>
+        <record id="view_form_leandix_ai_chat_history" model="ir.ui.view">
+            <field name="name">leandix.ai.chat.history.form</field>
+            <field name="model">leandix.ai.chat.history</field>
+            <field name="arch" type="xml">
+                <form js_class="chat_test_leandix" >
 
-            </form>
-        </field>
-    </record>
+                </form>
+            </field>
+        </record>
 
-    <record id="action_leandix_ai_chat_history" model="ir.actions.act_window">
-        <field name="name">chat</field>
-        <field name="res_model">leandix.ai.chat.history</field>
-        <field name="view_mode">form</field>
-        <field name="view_id" ref="view_form_leandix_ai_chat_history"/>
-        <field name="target">main</field>
-    </record>
+        <record id="action_leandix_ai_chat_history" model="ir.actions.act_window">
+            <field name="name">chat</field>
+            <field name="res_model">leandix.ai.chat.history</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_form_leandix_ai_chat_history"/>
+            <field name="target">main</field>
+        </record>
+    </data>
 </odoo> 

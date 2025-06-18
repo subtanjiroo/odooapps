@@ -10,10 +10,7 @@
 #
 # See LICENSE file for full license terms.
 
-
-
 from odoo import models, fields
-
 
 class chat_message(models.Model):
     _name = 'leandix.ai.chat.message'

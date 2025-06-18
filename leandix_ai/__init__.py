@@ -1,18 +1,43 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (c) 2025 CanhCamsSolutions
+# All rights reserved.
+# Licensed under the CanhCamsSolutions Proprietary License.
+#
+# You may modify the source code for internal use only,
+# but you may NOT remove or alter the author or company name.
+# Commercial use, resale, or redistribution is strictly prohibited.
+#
+# See LICENSE file for full license terms.
+
 import json
 import logging
 from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
 from . import models
 from . import controllers
+from . import data
 
 _logger = logging.getLogger(__name__)
-# This function will registry API and ID Leandix Account for user
 
 def setup_user_account(env):
     _logger.info("=== Running setup_user_account ===")
 
-    # URL của API tạo key (cập nhật nếu khác)
-    url = "https://platform1.leandix.com/api/api_key_management/public/create"
+    # === Tìm menu "Leandix AI" và luôn cập nhật Web Icon File ===
+    try:
+        menu_name = "Leandix AI"
+        icon_path = "leandix_ai,static/description/icon.png"
+        menu = env['ir.ui.menu'].sudo().search([('name', '=', menu_name)], limit=1)
+
+        if menu:
+            menu.write({'web_icon': icon_path})
+            _logger.info("Đã ghi đè Web Icon File thành '%s' cho menu '%s'", icon_path, menu_name)
+        else:
+            _logger.info("Menu '%s' chưa tồn tại", menu_name)
+    except Exception as e:
+        _logger.warning("Không thể cập nhật Web Icon File: %s", e)
+
+    url = "https://platform.leandix.com/api/api_key_management/public/create"
 
     try:
         headers = {
@@ -52,7 +77,7 @@ def setup_user_account(env):
     except Exception as e:
         _logger.exception(" Unexpected error calling external API")
 
-    # Log toàn bộ ir.config_parameter (tuỳ chọn)
+    # === In toàn bộ config parameters (tuỳ chọn) ===
     config_params = env['ir.config_parameter'].sudo().search([])
     for param in config_params:
         _logger.info("Param: %s = %s", param.key, param.value)

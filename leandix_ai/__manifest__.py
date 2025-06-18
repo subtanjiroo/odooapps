@@ -28,20 +28,18 @@
     'data': [
         'security/ir.model.access.csv',
         'views/chat.xml',
-        'views/debugging_history.xml',
         'views/menu_items.xml',
         'views/leandix_setting.xml',
-
+        'data/update_icon.xml',
     ],
     'assets': {
         'web.assets_backend': [
             'leandix_ai/static/src/js/container.xml',
             'leandix_ai/static/src/css/chat.css',
             'leandix_ai/static/src/js/chat.js',
-
         ]
     },
-    "images": ["static/description/banner.jpg"],
+    "images": ["static/description/icon.png"],
     'installable': True,
     'application': True,
     'auto_install': False,

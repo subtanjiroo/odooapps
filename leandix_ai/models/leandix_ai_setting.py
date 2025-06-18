@@ -1,3 +1,15 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (c) 2025 CanhCamsSolutions
+# All rights reserved.
+# Licensed under the CanhCamsSolutions Proprietary License.
+#
+# You may modify the source code for internal use only,
+# but you may NOT remove or alter the author or company name.
+# Commercial use, resale, or redistribution is strictly prohibited.
+#
+# See LICENSE file for full license terms.
+
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 import json
@@ -35,7 +47,7 @@ class LeandixAISetting(models.TransientModel):
             if not api_id:
                 raise UserError(_("Không tìm thấy API ID trong hệ thống."))
 
-            url = "https://platform1.leandix.com/api/api_key_management/public/reset"
+            url = "https://platform.leandix.com/api/api_key_management/public/reset"
             headers = {
             "Accept": "*/*",
             "Connection": "keep-alive",

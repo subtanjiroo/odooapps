@@ -4,7 +4,7 @@
         <xpath expr="//Layout" position="replace">
             <div class="my_chat_container">
                 <!-- Sidebar -->
-                <aside class="sidebar" id="side_bar">
+                <aside class="sidebar" id="side_bar" t-attf-class="sidebar #{state.sending ? 'disabled-overlay' : ''}">
                     <div class="sidebar_header">
                         <span class="sb1">
                             <img class="logo" t-on-click="toggleSidebar" src="/leandix_ai/static/img/menu_btn.png" alt="Leandix AI"/>
@@ -17,7 +17,7 @@
                     </div>
                     <div id="setting_pannel" class="setting_pannel">
                         <!-- search function -->
-                        <div class="search_div"><input t-on-input="search_function" class="my_search_input" placeholder="Tìm Kiếm ?"/></div>
+                        <div class="search_div"><input t-on-input="search_function" class="my_search_input" placeholder="Tìm Kiếm?"/></div>
                     </div>
                     <div class="conversation-list">
                         <div id="conversation_list_header" class="conversation_list_header">
@@ -38,7 +38,13 @@
                     <div class="chat_container_header">
                         <div id="sidebar_header2" class="sidebar_header2">
                             <img class="logo" t-on-click="toggleSidebar" src="/leandix_ai/static/img/menu_btn.png" alt="Leandix AI"/>
-                            <img class="logo" t-on-click="new_conversation" src="/leandix_ai/static/img/create_btn.png" alt="Leandix AI"/>
+                            <span t-attf-class="btn_create_wrapper #{state.sending ? 'is-disabled' : ''}">
+                                <img class="logo" id="btn_create"
+                                    t-att-disabled="state.sending"
+                                    t-on-click="new_conversation"
+                                    src="/leandix_ai/static/img/create_btn.png"
+                                    alt="Leandix AI"/>
+                            </span>
                         </div>
 
                         <!-- Chat model here -->
@@ -98,14 +104,14 @@
                         </style>
                         <div class="chat-input-area">
                             <div class="thinking">
-                                Thinking
+                                analyzing
                                 <span>.</span>
                                 <span>.</span>
                                 <span>.</span>
                             </div>
                             <div class="text-input-area">
                                 <textarea class="chat_text" placeholder="Ask anything" t-on-input="autoExpand" t-on-keydown="handleKeyDown"></textarea>
-                                <button class="chat_send_button" t-on-click="sendMessage">SEND</button>           
+                                <button class="chat_send_button" t-on-click="sendMessage" t-att-disabled="state.sending">Send</button>           
                             </div>
                             <div style="display:none;" class="quick-action-area">
                                 <button t-on-click="hide_something" class="quick-action-button">example 1</button>

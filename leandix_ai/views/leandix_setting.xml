@@ -10,7 +10,7 @@
             <setting class="mt-0">
                 <span class="o_form_label"><span searchabletext="API Key">API Key</span></span>
                 <div class="text-muted">
-                    Nhập API Key của Leandix AI Tại Đấy, Nếu bạn chưa có API Key, hãy đăng ký tại
+                    Enter Leandix AI API Key Here, If you don't have an API Key yet, sign up at
                     <a href="https://leandix.com" target="_blank" rel="noopener noreferrer">Leandix AI</a>.
                 </div>
               <field name="leandix_api_key"/>

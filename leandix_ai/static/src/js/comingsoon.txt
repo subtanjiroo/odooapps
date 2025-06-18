@@ -1,5 +1,4 @@
 /** @odoo-module **/
-
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { formView } from '@web/views/form/form_view';
@@ -14,6 +13,7 @@ export class ChatController extends FormController {
     //run setup interface
     async setup() {
         super.setup();
+        this.NOSQL = true // This variable will decided to streaming answer or make a tool call
         this.rawData = ""; // this variable will hold the data structure, which mean it contains how the data will look like when User Interface revice it, not the real rawData
         this.user_confirm = true;
         this.state = useState({ sending: false }); // this variable will disable button if true
@@ -29,6 +29,8 @@ export class ChatController extends FormController {
         this.chat_model = "GPT"; //variable for model selection
         this.orm = useService("orm");
         this.data_his = [];
+        // this.engine_url = "https://api.leandix.com"; 
+        this.engine_url = "http://localhost:5002"; 
         this.wait = true;
         this.DEMO = true;
         this.user_lang = await this.getUserLang();
@@ -122,6 +124,7 @@ export class ChatController extends FormController {
                 // Gửi tin nhắn lên engine cho bot xử lý để lấy sql query và cú trúc message tạm thời ( phase 1 )
                 ai_response_phase_1 = await this.sendMessageToEngineAPI(userMessage) || "None ( phase 1 )";
                 console.log("ai_response_phase_1: ",ai_response_phase_1)
+
                 // Kiểm tra xem còn Demo Không ? ( mã 402 == demo reached, 400 == invalid key )
                 if(ai_response_phase_1 !== "DEMO_REACHED" && ai_response_phase_1 !== "API_KEY_INVALID"){
                     //Tạo conversation mới nếu là tin nhắn đầu tiên, nếu không có thì lưu vào cuộc trò chuyện hiện tại
@@ -144,85 +147,87 @@ export class ChatController extends FormController {
                             this.data_his = messages.slice(-10);
                         }
                     }
-                    // kiểm tra xem có cần dùng tool không ? ( leandix tool )
-                    if (ai_response_phase_1.startsWith("leandix_")) {
-                        const functionName = ai_response_phase_1.replace("leandix_", "");
-                        
-                        // Kiểm tra xem hàm tồn tại không trước khi gọi
-                        if (typeof this[functionName] === "function") {
-                            sql_result = await this[functionName]() || `Không có phản hồi từ hàm ${functionName}`;
-                        } else {
-                            sql_result = `Hàm ${functionName} không tồn tại`;
-                        }
-                    } else {
-                        sql_result = await this.getDatafromDB(this.sql_query) || "None ( Phase 2 )";
-                        console.log("sql_result: ",sql_result)
-                        if (sql_result?.error || sql_result.status =="error") {
-                            let retryCount = 0;
-                            while (retryCount < 3) {
-                                let error = sql_result.message
-                                console.log("error ,",error)
-                                ai_response_phase_1 = await this.sendMessageToEngineAPI(userMessage,error) || "None ( phase 1 )";
-                                console.log("ai_response_phase_1.5:", ai_response_phase_1);
-                                console.log("retryCount:", retryCount);
-                                sql_result = await this.getDatafromDB(this.sql_query) || "None ( Phase 2 )";
-                                console.log("sql_result: ",sql_result)
-                                // Dừng nếu trả về khác "None ( phase 1 )"
-                                if (sql_result?.error || sql_result.status !="error"){
-                                        break;
-                                    }
-
-
-                                retryCount++;
+                    if(this.NOSQL !== true){
+                        // kiểm tra xem có cần dùng tool không ? ( leandix tool )(Phase 2)
+                        if (ai_response_phase_1.startsWith("leandix_")) {
+                            const functionName = ai_response_phase_1.replace("leandix_", "");
+                            
+                            // Kiểm tra xem hàm tồn tại không trước khi gọi
+                            if (typeof this[functionName] === "function") {
+                                sql_result = await this[functionName]() || `Không có phản hồi từ hàm ${functionName}`;
+                            } else {
+                                sql_result = `Hàm ${functionName} không tồn tại`;
                             }
                         } else {
-                            sql_result = sql_result || "None ( Phase 2 )";
+                            sql_result = await this.getDatafromDB(this.sql_query) || "None ( Phase 2 )";
+                            console.log("sql_result: ",sql_result)
+                            if (sql_result?.error || sql_result.status =="error") {
+                                let retryCount = 0;
+                                while (retryCount < 3) {
+                                    let error = sql_result.message
+                                    console.log("error ,",error)
+                                    ai_response_phase_1 = await this.sendMessageToEngineAPI(userMessage,error) || "None ( phase 1 )";
+                                    console.log("ai_response_phase_1.5:", ai_response_phase_1);
+                                    console.log("retryCount:", retryCount);
+                                    sql_result = await this.getDatafromDB(this.sql_query) || "None ( Phase 2 )";
+                                    console.log("sql_result: ",sql_result)
+                                    // Dừng nếu trả về khác "None ( phase 1 )"
+                                    if (sql_result?.error || sql_result.status !="error"){
+                                            break;
+                                        }
+    
+    
+                                    retryCount++;
+                                }
+                            } else {
+                                sql_result = sql_result || "None ( Phase 2 )";
+                            }
+                        }
+    
+                        // kiểm tra xem người dùng có đồng ý gửi data cho Engine không ( coming soon )
+                        if (this.user_confirm == false) {
+                            // This function is for make the answer prettier if the user dont agree to use gpt to analytics the data ( Phase 3 )
+                            botReply = await this.formatingData(this.sql_query,sql_result,this.rawData) || "Không có phản hồi answer_pretier";
+                        }else{
+                            // Lấy câu trả lời được phân tích từ server khi được user confirm ( Phase 3 ).
+                           const result = await this.sendMessageToAnswerAPI(
+                                userMessage,
+                                ai_response_phase_1,
+                                sql_result,
+                                this.chat_model,
+                                this.USER_ID,
+                                this.data_his
+                            );
+    
+                            botReply = result || (this.user_lang === "vi_vn"
+                                ? "Đã Có Lỗi Xảy Ra Vui Lòng Thử Lại."
+                                : "Some Thing Went Wrong Please Try Again.");
+    
+                        }
+                        //////////////This function will save response and naming conversation from server as bot message////////////
+                        await this.new_message(botReply,"system",conversation_id)
+                        /////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        
+                        // Hiển thị phản hồi của bot lên giao diện
+                        this.thinking = false;
+                        this.animateDots();
+                        const botMessageDiv = document.createElement("div");
+                        botMessageDiv.classList.add("bot-message");
+                        botMessageDiv.innerHTML = `
+                            <div class="bot-message-content">
+                                ${botReply}
+                            </div>
+                        `;
+                        if(conversation_id == this.current_convesation_id){
+                            this.wait = true
+                        }else{
+                            this.wait = false
+                        }
+                        if(this.wait == true){
+                            chatContainer.appendChild(botMessageDiv);
                         }
                     }
-
-                    // kiểm tra xem người dùng có đồng ý gửi data cho Engine không ( coming soon )
-                    if (this.user_confirm == false) {
-                        // This function is for make the answer prettier if the user dont agree to use gpt to analytics the data ( Phase 3 )
-                        botReply = await this.formatingData(this.sql_query,sql_result,this.rawData) || "Không có phản hồi answer_pretier";
-                    }else{
-                        // Lấy câu trả lời được phân tích từ server khi được user confirm ( Phase 3 ).
-                       const result = await this.sendMessageToAnswerAPI(
-                            userMessage,
-                            ai_response_phase_1,
-                            sql_result,
-                            this.chat_model,
-                            this.USER_ID,
-                            this.data_his
-                        );
-
-                        botReply = result || (this.user_lang === "vi_vn"
-                            ? "Đã Có Lỗi Xảy Ra Vui Lòng Thử Lại."
-                            : "Some Thing Went Wrong Please Try Again.");
-
-                    }
-                    //////////////This function will save response and naming conversation from server as bot message////////////
-                    await this.new_message(botReply,"system",conversation_id)
-                    /////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    
-                    // Hiển thị phản hồi của bot lên giao diện
-                    this.thinking = false;
-                    this.animateDots();
-                    const botMessageDiv = document.createElement("div");
-                    botMessageDiv.classList.add("bot-message");
-                    botMessageDiv.innerHTML = `
-                        <div class="bot-message-content">
-                            ${botReply}
-                        </div>
-                    `;
-                    if(conversation_id == this.current_convesation_id){
-                        this.wait = true
-                    }else{
-                        this.wait = false
-                    }
-                    if(this.wait == true){
-                        chatContainer.appendChild(botMessageDiv);
-                    }
-                    //xác định lại điều kiện người dùng đang chờ trường hợp khi người dùng không chờ
+                    //xác định lại điều kiện người dùng đang chờ
                     this.wait = true
                     // cuộn tới tin nhắn mới nhất
                     this.scrollToBottom()
@@ -306,28 +311,79 @@ export class ChatController extends FormController {
     }
 
     //this function will Send user message to Odoo Backend to call Server API
-    async sendMessageToEngineAPI(message, error) {
-        const response = await this.orm.call(
-            "leandix.ai.chat.model",
-            "send_message_to_engine_api",
-            [message, this.data_his || 'Tạm Thời Chưa Có History', this.chat_model, this.USER_ID, error || "None"]
-        );
+    async sendMessageToEngineAPI(userMessage) {
+        const controller = new AbortController();
+        const signal = controller.signal;
+        const chatContainer = document.querySelector(".chat_container_body");
 
-        console.log(response);
+        const response = await fetch(`${this.engine_url}/chat`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                message: userMessage,
+            }),
+            signal,
+        });
 
-        if (response == "API_KEY_INVALID" || response == "DEMO_REACHED") {
-            return response
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let fullText = "";
+        let isFirstChunk = true;
+
+        // === Tạo thẻ chat bot để gắn vào DOM ===
+        const botMessageDiv = document.createElement("div");
+        botMessageDiv.classList.add("bot-message");
+
+        const botContentDiv = document.createElement("div");
+        botContentDiv.classList.add("bot-message-content");
+        botMessageDiv.appendChild(botContentDiv);
+
+        if (this.current_convesation_id) {
+            this.wait = true;
+        } else {
+            this.wait = false;
         }
 
-        // Save rawData nếu có
-        if (response.message?.rawData) {
-            this.rawData = response.message.rawData;
+        if (this.NOSQL == true) {
+            chatContainer.appendChild(botMessageDiv);
         }
 
-        // Save sql_query nếu có
-        this.sql_query = response.message?.sql_query;
-        return this.sql_query;
+        // === Đọc từng chunk ===
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            let chunk = decoder.decode(value, { stream: true });
+
+            if (isFirstChunk) {
+                const prefix = chunk.slice(0, 9);
+                if (prefix === "__NOSQL__") {
+                    console.log("Flag:", prefix);
+                    chunk = chunk.slice(9);
+                    this.NOSQL = true
+                }else{
+                    this.NOSQL = false
+                }
+                isFirstChunk = false;
+            }
+
+            fullText += chunk;
+            botContentDiv.innerText = fullText; // Cập nhật nội dung chat theo thời gian thực
+        }
+
+        if(this.NOSQL == true){
+            // === Lưu toàn bộ message sau khi kết thúc stream ===
+            await this.new_message(fullText, "system", this.current_convesation_id);
+            this.thinking = false;
+            this.animateDots();
+        }
+
+        return fullText;
     }
+
+
 
     //this function will get data from the database for sql query( get_data_from_DB function in the Odoo Backend)
     async getDatafromDB(sql_query) {
