@@ -3,294 +3,372 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leandix AI</title>
+    <title>Leandix AI - AI-powered insights and automation for Odoo</title>
+    
     <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Custom CSS for specific styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- Custom CSS -->
     <style>
         :root {
-            --bs-primary: #C711E0;
-            --bs-secondary: #2D2187;
-            --color-third: #8316B9;
+            --primary-purple: #8B5CF6;
+            --secondary-purple: #6D28D9;
+            --dark-purple: #4C1D95;
+            --light-gray: #F8FAFC;
+            --text-gray: #64748B;
+            --text-dark: #1E293B;
         }
         
-        @font-face {
-            font-family: 'Neue Einstellung';
-            src: url('/leandix_ai/static/src/fonts/NeueEinstellung-Regular.woff2') format('woff2');
-            font-weight: 400;
-            font-style: normal;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
-        .neue-font { font-family: "Neue Einstellung", sans-serif; }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+        
         .gradient-text {
-            background: linear-gradient(to bottom, #C711E0 0%, #C711E0 5%, #2D2187 55%, #2D2187 100%);
+            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--dark-purple) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
-        .custom-card:hover .grow-circle {
-            width: 1000px !important;
-            height: 1000px !important;
+        .btn-primary-custom {
+            background: var(--primary-purple);
+            border: none;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
         
-        .custom-card:hover h4,
-        .custom-card:hover p {
-            color: white !important;
+        .btn-primary-custom:hover {
+            background: var(--secondary-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
         }
         
-        .grow-circle {
-            background: linear-gradient(180deg, #2D2187 0%, #8316B9 100%);
-            width: 0;
-            height: 0;
-            transition: 0.8s;
+        .feature-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 2rem;
+            height: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            border-color: var(--primary-purple);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15);
+        }
+        
+        .feature-card::before {
+            content: '';
             position: absolute;
-            bottom: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 500px;
-            z-index: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-purple), var(--secondary-purple));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
         }
         
-        .grid-background {
-            background-color: var(--color-third);
-            background-image: url('./assets/stone.jpg');
-            background-size: cover;
-            background-blend-mode: overlay;
-            opacity: 0.9;
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .section-purple {
+            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--dark-purple) 100%);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+        }
+        
+        .icon-box {
+            width: 80px;
+            height: 80px;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .step-item {
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .step-item:hover {
+            border-color: var(--primary-purple);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.1);
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-purple);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .privacy-card {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .privacy-card:hover {
+            background: rgba(139, 92, 246, 0.15);
+            transform: translateY(-3px);
+        }
+        
+        .download-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
         
         .download-btn {
-            background: linear-gradient(180deg, #8316B9 0%, #2D2187 100%);
-            backdrop-filter: blur(50px);
-            box-shadow: 0px 4px 24px rgba(0,0,0,0.2);
-            transition: 0.1s linear;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
         
         .download-btn:hover {
-            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: scale(1.05);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .step-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .step-number {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Hero Section -->
-    <section class="bg-light py-5" style="padding: 10rem 1rem;">
+    <section class="py-5" style="min-height: 100vh; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); display: flex; align-items: center;">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h2 class="neue-font fw-bold fs-1 mb-3" style="color: var(--bs-secondary);">LEANDIX AI</h2>
-                    <h1 class="gradient-text fw-bold mb-4" style="font-size: 48px;">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold mb-3" style="color: var(--text-gray);">LEANDIX AI</h1>
+                    <h2 class="display-3 fw-bold gradient-text mb-4">
                         AI-powered insights and automation for Odoo.
-                    </h1>
-                    <p class="roboto-font fs-5 fw-normal mb-4 mx-auto" style="max-width: 42rem; color: var(--bs-secondary); line-height: 1.5;">
+                    </h2>
+                    <p class="lead text-muted mb-5" style="max-width: 600px; margin: 0 auto;">
                         Powerfully integrate AI into your Odoo ERP system. Automate tasks, boost productivity, and gain intelligent insights from your business data
                     </p>
-                    <a href="#" class="btn btn-primary btn-lg rounded-pill px-4 py-3">Sign up</a>
+                    <button class="btn btn-primary-custom btn-lg">
+                        <i class="bi bi-rocket-takeoff me-2"></i>Sign up
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="py-5" style="background: var(--color-third); padding: 65px 20px;">
+    <section class="section-purple py-5">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10">
-                    <h3 class="text-white text-center mb-4 fw-bold" style="font-size: 2rem;">About leandix AI</h3>
-                    <div class="card border-0 p-4" style="border-radius: 15px; background: linear-gradient(160deg, var(--color-third) 0%, var(--color-third) 5%, var(--bs-secondary) 150%, var(--bs-secondary) 100%); backdrop-filter: blur(50px); box-shadow: 0px 4px 24px rgba(0,0,0,0.25);">
-                        <div class="card-body">
-                            <p class="text-white mb-0" style="font-size: 18px; font-weight: 400;">
-                                When using Leandix AI, selected business data (such as chat excerpts, relevant data fields, or contextual metadata) will be securely transmitted to a remote AI processing server (via API) for analysis and response generation. This allows the AI service to better understand your context and deliver more accurate results.
-                            </p>
-                        </div>
+                    <h3 class="text-white text-center mb-5 display-5 fw-bold">About Leandix AI</h3>
+                    <div class="glass-card">
+                        <p class="text-white mb-0 fs-5 leading-relaxed">
+                            When using Leandix AI, selected business data (such as chat excerpts, relevant data fields, or contextual metadata) will be securely transmitted to a remote AI processing server (via API) for analysis and response generation. This allows the AI service to better understand your context and deliver more accurate results.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="bg-light py-5" style="padding: 50px 0;">
+    <!-- Key Features Section -->
+    <section class="py-5 bg-light">
         <div class="container">
-            <h3 class="text-center mb-5 fw-bold" style="font-size: 2rem; color: var(--bs-primary);">Key Features</h3>
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-2 custom-card position-relative overflow-hidden" style="border-color: var(--color-third); min-height: 250px; border-radius: 0.75rem; padding: 1.5rem;">
-                        <div class="card-body d-flex flex-column justify-content-end position-relative" style="z-index: 1;">
-                            <h4 class="fw-semibold mb-3" style="font-size: 25px; color: var(--color-third);">External AI Processing</h4>
-                            <p style="font-size: 18px; color: var(--bs-secondary); line-height: 1.1;">
-                                Securely sends relevant Odoo data to an external AI server for real-time analysis and responses.
-                            </p>
-                        </div>
-                        <div class="grow-circle position-absolute"></div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-2 custom-card position-relative overflow-hidden" style="border-color: var(--color-third); min-height: 250px; border-radius: 0.75rem; padding: 1.5rem;">
-                        <div class="card-body d-flex flex-column justify-content-end position-relative" style="z-index: 1;">
-                            <h4 class="fw-semibold mb-3" style="font-size: 25px; color: var(--color-third);">Security & Privacy</h4>
-                            <p style="font-size: 18px; color: var(--bs-secondary); line-height: 1.1;">
-                                All interactions with AI follow strict security protocols to protect sensitive business information.
-                            </p>
-                        </div>
-                        <div class="grow-circle position-absolute"></div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-2 custom-card position-relative overflow-hidden" style="border-color: var(--color-third); min-height: 250px; border-radius: 0.75rem; padding: 1.5rem;">
-                        <div class="card-body d-flex flex-column justify-content-end position-relative" style="z-index: 1;">
-                            <h4 class="fw-semibold mb-3" style="font-size: 25px; color: var(--color-third);">User-Friendly Interface</h4>
-                            <p style="font-size: 18px; color: var(--bs-secondary); line-height: 1.1;">
-                                A visually appealing, fast-responding AI chat interface integrated directly into the Odoo admin dashboard.
-                            </p>
-                        </div>
-                        <div class="grow-circle position-absolute"></div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-2 custom-card position-relative overflow-hidden" style="border-color: var(--color-third); min-height: 250px; border-radius: 0.75rem; padding: 1.5rem;">
-                        <div class="card-body d-flex flex-column justify-content-end position-relative" style="z-index: 1;">
-                            <h4 class="fw-semibold mb-3" style="font-size: 25px; color: var(--color-third);">Advanced Tools</h4>
-                            <p style="font-size: 18px; color: var(--bs-secondary); line-height: 1.1;">
-                                A user-friendly interface optimized for seamless interactions with models & provides users as GPT Odoo tools.
-                            </p>
-                        </div>
-                        <div class="grow-circle position-absolute"></div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-2 custom-card position-relative overflow-hidden" style="border-color: var(--color-third); min-height: 250px; border-radius: 0.75rem; padding: 1.5rem;">
-                        <div class="card-body d-flex flex-column justify-content-end position-relative" style="z-index: 1;">
-                            <h4 class="fw-semibold mb-3" style="font-size: 25px; color: var(--color-third);">Smart Automation</h4>
-                            <p style="font-size: 18px; color: var(--bs-secondary); line-height: 1.1;">
-                                Helps the AI understand your business models, data structures, and workflows within Odoo — enabling smarter automation and more context-aware responses.
-                            </p>
-                        </div>
-                        <div class="grow-circle position-absolute"></div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-2 custom-card position-relative overflow-hidden" style="border-color: var(--color-third); min-height: 250px; border-radius: 0.75rem; padding: 1.5rem;">
-                        <div class="card-body d-flex flex-column justify-content-end position-relative" style="z-index: 1;">
-                            <h4 class="fw-semibold mb-3" style="font-size: 25px; color: var(--color-third);">Flexible Integration</h4>
-                            <p style="font-size: 18px; color: var(--bs-secondary); line-height: 1.1;">
-                                Easily connect with different AI providers and switch between models as needed.
-                            </p>
-                        </div>
-                        <div class="grow-circle position-absolute"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Privacy Section -->
-    <section class="py-5" style="background: var(--color-third); padding: 50px 0;">
-        <div class="container">
-            <h3 class="text-white text-center mb-4" style="font-size: 32px;">Privacy & Security</h3>
             <div class="row">
-                <div class="col-12">
-                    <p class="text-white mb-4" style="font-size: 18px; text-align: center;">
-                        Leandix AI places a high priority on the security and confidentiality of your business data. Only the necessary and
-                        contextually relevant data is sent to external AI servers for processing. All data transmission is conducted over secure,
-                        encrypted HTTPS channels.
-                    </p>
-                    <p class="text-white mb-4" style="font-size: 18px; text-align: center;">
-                        Data is not stored permanently on AI servers unless you explicitly configure or allow it. You have full control through the Leandix AI configuration panel in Odoo, where you can manage API permissions and endpoint settings.
-                    </p>
+                <div class="col-12 text-center mb-5">
+                    <h3 class="display-5 fw-bold gradient-text">Key Features</h3>
                 </div>
             </div>
-            
-            <div class="row g-4 mt-4">
+            <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
-                    <div class="text-center grid-background rounded p-4 position-relative overflow-hidden">
-                        <div class="position-relative" style="z-index: 1;">
-                            <div class="rounded-circle bg-white bg-opacity-20 d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 4rem; height: 4rem;">
-                                <svg class="text-white" style="width: 2rem; height: 2rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                                </svg>
-                            </div>
-                            <h4 class="text-white fw-bold mb-3 p-2 rounded">Data Encryption</h4>
-                            <p class="text-white-50 mb-0" style="font-size: 18px;">Securely sends relevant Odoo data to an external AI server for real-time analysis and responses.</p>
+                    <div class="feature-card">
+                        <div class="icon-box">
+                            <i class="bi bi-cloud-arrow-up text-primary fs-1" style="color: var(--primary-purple) !important;"></i>
                         </div>
+                        <h4 class="fw-bold mb-3" style="color: var(--primary-purple);">External AI Processing</h4>
+                        <p class="text-muted mb-0">
+                            Securely sends relevant Odoo data to an external AI server for real-time analysis and responses.
+                        </p>
                     </div>
                 </div>
-
+                
                 <div class="col-lg-4 col-md-6">
-                    <div class="text-center grid-background rounded p-4 position-relative overflow-hidden">
-                        <div class="position-relative" style="z-index: 1;">
-                            <div class="rounded-circle bg-white bg-opacity-20 d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 4rem; height: 4rem;">
-                                <svg class="text-white" style="width: 2rem; height: 2rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                </svg>
-                            </div>
-                            <h4 class="text-white fw-bold mb-3 p-2 rounded">User Interface</h4>
-                            <p class="text-white-50 mb-0" style="font-size: 18px;">A visually appealing, fast-responding AI chat interface integrated directly into the Odoo admin dashboard.</p>
+                    <div class="feature-card">
+                        <div class="icon-box">
+                            <i class="bi bi-shield-check text-primary fs-1" style="color: var(--primary-purple) !important;"></i>
                         </div>
+                        <h4 class="fw-bold mb-3" style="color: var(--primary-purple);">Secure-by-Design</h4>
+                        <p class="text-muted mb-0">
+                            All interactions with AI follow strict security protocols to protect sensitive business information.
+                        </p>
                     </div>
                 </div>
-
+                
                 <div class="col-lg-4 col-md-6">
-                    <div class="text-center grid-background rounded p-4 position-relative overflow-hidden">
-                        <div class="position-relative" style="z-index: 1;">
-                            <div class="rounded-circle bg-white bg-opacity-20 d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 4rem; height: 4rem;">
-                                <svg class="text-white" style="width: 2rem; height: 2rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                                </svg>
-                            </div>
-                            <h4 class="text-white fw-bold mb-3 p-2 rounded">Security Protocols</h4>
-                            <p class="text-white-50 mb-0" style="font-size: 18px;">All interactions with AI follow strict security protocols to protect sensitive business information.</p>
+                    <div class="feature-card">
+                        <div class="icon-box">
+                            <i class="bi bi-chat-dots text-primary fs-1" style="color: var(--primary-purple) !important;"></i>
                         </div>
+                        <h4 class="fw-bold mb-3" style="color: var(--primary-purple);">Custom Chat Interface</h4>
+                        <p class="text-muted mb-0">
+                            A visually appealing, fast-responding AI chat interface integrated directly into the Odoo admin dashboard.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="icon-box">
+                            <i class="bi bi-person-gear text-primary fs-1" style="color: var(--primary-purple) !important;"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3" style="color: var(--primary-purple);">User & AI-Friendly</h4>
+                        <p class="text-muted mb-0">
+                            A user-friendly interface optimized for seamless interactions with models & provides users as GPT Odoo tools.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="icon-box">
+                            <i class="bi bi-diagram-3 text-primary fs-1" style="color: var(--primary-purple) !important;"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3" style="color: var(--primary-purple);">Deep Odoo Integration</h4>
+                        <p class="text-muted mb-0">
+                            Helps the AI understand your business models, data structures, and workflows within Odoo — enabling smarter automation and more context-aware responses.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="icon-box">
+                            <i class="bi bi-layers text-primary fs-1" style="color: var(--primary-purple) !important;"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3" style="color: var(--primary-purple);">Multi-Model Support</h4>
+                        <p class="text-muted mb-0">
+                            Easily connect with different AI providers and switch between models as needed.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Use Cases Section -->
-    <section class="bg-light py-5" style="padding: 50px 0;">
+    <!-- Data Usage & Privacy Section -->
+    <section class="section-purple py-5">
         <div class="container">
-            <h3 class="text-center mb-5 fw-bold" style="font-size: 2rem; color: var(--bs-primary);">Use Cases</h3>
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h3 class="display-5 fw-bold text-white">Data Usage & Privacy</h3>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="glass-card text-center">
+                        <p class="text-white mb-4 fs-5">
+                            Leandix AI places a high priority on the security and confidentiality of your business data. Only the necessary and contextually relevant data is sent to external AI servers for processing. All data transmission is conducted over secure, encrypted HTTPS channels.
+                        </p>
+                        <p class="text-white mb-0 fs-5">
+                            Data is not stored permanently on AI servers unless you explicitly configure or allow it. You have full control through the Leandix AI configuration panel in Odoo, where you can manage API permissions and endpoint settings.
+                        </p>
+                    </div>
+                </div>
+            </div>
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-2 custom-card position-relative overflow-hidden" style="border-color: var(--color-third); min-height: 250px; border-radius: 0.75rem; padding: 1.5rem;">
-                        <div class="card-body d-flex flex-column justify-content-end position-relative" style="z-index: 1;">
-                            <h4 class="fw-semibold mb-3" style="font-size: 25px; color: var(--color-third);">Data Analysis</h4>
-                            <p style="font-size: 18px; color: var(--bs-secondary); line-height: 1.1;">
-                                Analyze business data patterns and generate insights automatically.
-                            </p>
+                    <div class="privacy-card">
+                        <div class="icon-box mx-auto">
+                            <i class="bi bi-lock-fill text-primary fs-1" style="color: var(--primary-purple) !important;"></i>
                         </div>
-                        <div class="grow-circle position-absolute"></div>
+                        <h4 class="fw-bold mb-3" style="color: var(--primary-purple);">Data Encryption</h4>
+                        <p class="text-muted mb-0">
+                            Securely sends relevant Odoo data to an external AI server for real-time analysis and responses.
+                        </p>
                     </div>
                 </div>
-
+                
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-2 custom-card position-relative overflow-hidden" style="border-color: var(--color-third); min-height: 250px; border-radius: 0.75rem; padding: 1.5rem;">
-                        <div class="card-body d-flex flex-column justify-content-end position-relative" style="z-index: 1;">
-                            <h4 class="fw-semibold mb-3" style="font-size: 25px; color: var(--color-third);">Task Automation</h4>
-                            <p style="font-size: 18px; color: var(--bs-secondary); line-height: 1.1;">
-                                Automate repetitive tasks and streamline workflows.
-                            </p>
+                    <div class="privacy-card">
+                        <div class="icon-box mx-auto">
+                            <i class="bi bi-check-circle-fill text-primary fs-1" style="color: var(--primary-purple) !important;"></i>
                         </div>
-                        <div class="grow-circle position-absolute"></div>
+                        <h4 class="fw-bold mb-3" style="color: var(--primary-purple);">Compliance Ready</h4>
+                        <p class="text-muted mb-0">
+                            A visually appealing, fast-responding AI chat interface integrated directly into the Odoo admin dashboard.
+                        </p>
                     </div>
                 </div>
-
+                
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-2 custom-card position-relative overflow-hidden" style="border-color: var(--color-third); min-height: 250px; border-radius: 0.75rem; padding: 1.5rem;">
-                        <div class="card-body d-flex flex-column justify-content-end position-relative" style="z-index: 1;">
-                            <h4 class="fw-semibold mb-3" style="font-size: 25px; color: var(--color-third);">Smart Recommendations</h4>
-                            <p style="font-size: 18px; color: var(--bs-secondary); line-height: 1.1;">
-                                Get intelligent recommendations based on your business data.
-                            </p>
+                    <div class="privacy-card">
+                        <div class="icon-box mx-auto">
+                            <i class="bi bi-lightning-charge-fill text-primary fs-1" style="color: var(--primary-purple) !important;"></i>
                         </div>
-                        <div class="grow-circle position-absolute"></div>
+                        <h4 class="fw-bold mb-3" style="color: var(--primary-purple);">Performance First</h4>
+                        <p class="text-muted mb-0">
+                            All interactions with AI follow strict security protocols to protect sensitive business information.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -298,101 +376,75 @@
     </section>
 
     <!-- User Guide Section -->
-    <section class="bg-white py-5">
+    <section class="py-5 bg-light">
         <div class="container">
-            <h3 class="text-center mb-5 fw-bold" style="font-size: 2rem; color: var(--bs-primary); margin: 50px 0; margin-top: 0;">User Guide</h3>
-            
-            <div class="d-flex flex-column gap-3">
-                <div class="d-flex align-items-center gap-3 border-2 rounded p-4" style="border-color: var(--color-third); padding: 30px;">
-                    <div class="d-none d-md-flex align-items-center justify-content-center" style="margin: 0 20px;">
-                        <img src="icon-1.png" alt="Step 1" style="width: 100px;">
-                    </div>
-                    <div class="d-flex d-md-none align-items-center justify-content-center" style="width: 50px; height: 50px;">
-                        <img src="icon-1.png" alt="Step 1" style="width: 50px; height: 50px;">
-                    </div>
-                    <div>
-                        <h4 class="d-flex align-items-center fw-bold mb-2" style="font-size: 24px; color: var(--color-third);">
-                            <img src="icon-1.png" alt="" style="margin-right: 10px; width: 24px; height: 24px;"> 
-                            Access Rights
-                        </h4>
-                        <p class="mb-0" style="color: var(--bs-secondary); font-weight: 400; font-size: 18px; line-height: 1.2;">
-                            Ensure the user has been granted the necessary access rights to use Leandix AI features.
-                        </p>
-                    </div>
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h3 class="display-5 fw-bold gradient-text">User Guide</h3>
                 </div>
-
-                <div class="d-flex align-items-center gap-3 border-2 rounded p-4" style="border-color: var(--color-third); padding: 30px;">
-                    <div class="d-none d-md-flex align-items-center justify-content-center" style="margin: 0 20px;">
-                        <img src="icon-2.png" alt="Step 2" style="width: 100px;">
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="step-item d-flex align-items-start">
+                        <div class="step-number">1</div>
+                        <div>
+                            <h4 class="fw-bold mb-3" style="color: var(--primary-purple);">Access Rights</h4>
+                            <p class="text-muted mb-0">
+                                Ensure the user has been granted the necessary access rights to use Leandix AI features.
+                            </p>
+                        </div>
                     </div>
-                    <div class="d-flex d-md-none align-items-center justify-content-center" style="width: 50px; height: 50px;">
-                        <img src="icon-2.png" alt="Step 2" style="width: 50px; height: 50px;">
+                    
+                    <div class="step-item d-flex align-items-start">
+                        <div class="step-number">2</div>
+                        <div>
+                            <h4 class="fw-bold mb-3" style="color: var(--primary-purple);">Detailed Information</h4>
+                            <p class="text-muted mb-0">
+                                The more detailed the information—the model, field, number of records, conditions—the better the AI can understand and respond accurately.
+                            </p>
+                        </div>
                     </div>
-                    <div>
-                        <h4 class="d-flex align-items-center fw-bold mb-2" style="font-size: 24px; color: var(--color-third);">
-                            <img src="icon-2.png" alt="" style="margin-right: 10px; width: 24px; height: 24px;"> 
-                            Detailed Information
-                        </h4>
-                        <p class="mb-0" style="color: var(--bs-secondary); font-weight: 400; font-size: 18px; line-height: 1.2;">
-                            The more detailed the information—the model, field, number of records, conditions—the better the AI can understand and respond accurately.
-                        </p>
+                    
+                    <div class="step-item d-flex align-items-start">
+                        <div class="step-number">3</div>
+                        <div>
+                            <h4 class="fw-bold mb-3" style="color: var(--primary-purple);">Data Requirements</h4>
+                            <p class="text-muted mb-0">
+                                All required modules should be installed and sufficient business data available for meaningful AI feedback.
+                            </p>
+                        </div>
                     </div>
-                </div>
-
-                <div class="d-flex align-items-center gap-3 border-2 rounded p-4" style="border-color: var(--color-third); padding: 30px;">
-                    <div class="d-none d-md-flex align-items-center justify-content-center" style="margin: 0 20px;">
-                        <img src="icon-3.png" alt="Step 3" style="width: 100px;">
-                    </div>
-                    <div class="d-flex d-md-none align-items-center justify-content-center" style="width: 50px; height: 50px;">
-                        <img src="icon-3.png" alt="Step 3" style="width: 50px; height: 50px;">
-                    </div>
-                    <div>
-                        <h4 class="d-flex align-items-center fw-bold mb-2" style="font-size: 24px; color: var(--color-third);">
-                            <img src="icon-3.png" alt="" style="margin-right: 10px; width: 24px; height: 24px;"> 
-                            Data Requirements
-                        </h4>
-                        <p class="mb-0" style="color: var(--bs-secondary); font-weight: 400; font-size: 18px; line-height: 1.2;">
-                            All required modules should be installed and sufficient business data available for meaningful AI feedback.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="d-flex align-items-center gap-3 border-2 rounded p-4" style="border-color: var(--color-third); padding: 30px;">
-                    <div class="d-none d-md-flex align-items-center justify-content-center" style="margin: 0 20px;">
-                        <img src="icon-4.png" alt="Step 4" style="width: 100px;">
-                    </div>
-                    <div class="d-flex d-md-none align-items-center justify-content-center" style="width: 50px; height: 50px;">
-                        <img src="icon-4.png" alt="Step 4" style="width: 50px; height: 50px;">
-                    </div>
-                    <div>
-                        <h4 class="d-flex align-items-center fw-bold mb-2" style="font-size: 24px; color: var(--color-third);">
-                            <img src="icon-4.png" alt="" style="margin-right: 10px; width: 24px; height: 24px;"> 
-                            Usage Guidelines
-                        </h4>
-                        <p class="mb-0" style="color: var(--bs-secondary); font-weight: 400; font-size: 18px; line-height: 1.2;">
-                            Leandix AI may have limitations when returning excessively long or complex results. Therefore, it's recommended to ask clear and focused questions. If you want to explore all details of a module, it's better to review them directly in Odoo.
-                        </p>
+                    
+                    <div class="step-item d-flex align-items-start">
+                        <div class="step-number">4</div>
+                        <div>
+                            <h4 class="fw-bold mb-3" style="color: var(--primary-purple);">Usage Guidelines</h4>
+                            <p class="text-muted mb-0">
+                                Leandix AI may have limitations when returning excessively long or complex results. Therefore, it's recommended to ask clear and focused questions. If you want to explore all details of a module, it's better to review them directly in Odoo.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="py-5 text-center" style="color: var(--bs-secondary); padding: 5rem 1rem;">
+    <!-- Download Section -->
+    <section class="download-section py-5">
         <div class="container">
-            <div class="d-flex flex-column align-items-center">
-                <h3 class="fw-bold mb-3" style="color: var(--color-third); font-size: 40px;">Get Started Today</h3>
-                <p class="mb-4" style="font-size: 16px; font-weight: 400; color: var(--bs-secondary); line-height: 30px; margin-top: 10px; max-width: 60%;">
-                    Download Leandix AI now to experience the power of AI-driven automation and intelligent analytics—empowering you to streamline workflows and elevate the performance of your ERP system
-                </p>
-                <button class="download-btn text-white border-0 rounded d-flex align-items-center justify-content-center gap-2" style="width: 250px; height: 50px; padding: 14px 90px;">
-                    <span class="position-relative" style="z-index: 1;">Download</span>
-                </button>
-                
-                <div class="mt-4 d-flex justify-content-center align-items-flex-start" style="width: 100%;">
-                    <div class="text-center" style="font-weight: 400; font-size: 18px; width: 500px; color: #C0C0C0;">
-                        For support or inquiries, contact us at support@leandix.ai
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h3 class="display-5 fw-bold text-white mb-4">Get Started Today</h3>
+                    <p class="text-white mb-5 fs-5" style="opacity: 0.9;">
+                        Download Leandix AI now to experience the power of AI-driven automation and intelligent analytics—empowering you to streamline workflows and elevate the performance of your ERP system
+                    </p>
+                    <button class="download-btn mb-4">
+                        <i class="bi bi-download me-2"></i>Download
+                    </button>
+                    <div class="mt-4">
+                        <p class="text-white" style="opacity: 0.8;">
+                            For support or inquiries, contact us at <strong>support@leandix.ai</strong>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -400,6 +452,6 @@
     </section>
 
     <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
