@@ -41,7 +41,7 @@
 
         ]
     },
-    "images": ["static/description/icon.png"],
+    "images": ["static/description/banner.jpg"],
     'installable': True,
     'application': True,
     'auto_install': False,
