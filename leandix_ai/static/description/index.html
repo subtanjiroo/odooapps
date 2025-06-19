@@ -1,143 +1,269 @@
-<!-- 
-# -*- coding: utf-8 -*-
-#
-# Copyright (c) 2025 CanhCamsSolutions
-# All rights reserved.
-# Licensed under the CanhCamsSolutions Proprietary License.
-#
-# You may modify the source code for internal use only,
-# but you may NOT remove or alter the author or company name.
-# Commercial use, resale, or redistribution is strictly prohibited.
-#
-# See LICENSE file for full license terms. 
--->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Leandix AI - Description</title>
-  <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f9f9f9;
-      padding: 40px;
-      color: #333;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: auto;
-      background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-
-    h1 {
-      color: #1a73e8;
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
-
-    h2 {
-      color: #444;
-      margin-top: 30px;
-      font-size: 22px;
-    }
-
-    p {
-      line-height: 1.6;
-      font-size: 16px;
-    }
-
-    ul {
-      margin-left: 20px;
-    }
-
-    li {
-      margin-bottom: 10px;
-    }
-
-    .buttons {
-      margin-top: 30px;
-    }
-
-    .button {
-      display: inline-block;
-      background-color: #1a73e8;
-      color: white;
-      padding: 10px 20px;
-      margin-right: 10px;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
-    }
-
-    .button:hover {
-      background-color: #155ab6;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leandix AI - AI-powered insights and automation for Odoo</title>
 </head>
-<body>
-  <div class="container">
-    <h1>Leandix AI</h1>
-    <p><strong>AI-powered insights and automation for Odoo.</strong></p>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #1e293b; margin: 0; padding: 0;">
+    
+    <!-- Hero Section -->
+    <section style="display: flex; align-items: center; padding: 75px 0;">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+              <div class="col-lg-12 d-flex align-items-center flex-column">
+                    <h1 class="display-4 fw-bold mb-3" style="color:#8b5cf6; font-size: 3rem; margin-bottom: 1rem;">
+                      LEANDIX AI</h1>                     
+                    <h2 class="display-3 fw-bold mb-4" style="color:#8b5cf6; font-size: 28px; margin-bottom: 1.5rem; font-weight: 700;">
+                        AI-powered insights and automation for Odoo.
+                    </h2>
 
-    <h2>About Leandix AI</h2>
-    <p>
-      Leandix AI is a powerful Odoo module designed to integrate artificial intelligence seamlessly into your ERP system. 
-      It enhances user productivity by automating repetitive tasks and provides intelligent insights by bridging the gap between your business data and AI capabilities.
-    </p>
-    <p>
-      <strong>Note:</strong> When using Leandix AI, selected business data (such as chat prompts, relevant model fields, or context-specific metadata) will be securely transmitted to a remote AI processing server (via API) for analysis and response generation. This allows AI services to understand your context and deliver accurate results.
-    </p>
+                    <p class="lead mb-5" style="color: #2D2187; font-size: 18px; max-width: 600px; margin: 0 auto 3rem auto;">
+                        Powerfully integrate AI into your Odoo ERP system. Automate tasks, boost productivity, and gain intelligent insights from your business data
+                    </p>
+                    <a href="leandix.coms" class="d-flex align-items-center justify-content-center flex-column mb-2" style="background-image: linear-gradient(to bottom, #8b5cf6 0%, #2D2187 100%); border: none;display: flex; box-shadow: 0px 4px 24px 0px #00000033;align-items: center;justify-content: center; width: 250px;height: 50px; border-radius: 50px; font-weight: 600; transition: all 0.3s ease; color: white; font-size: 1.125rem;" onmouseover="this.style.background='#6d28d9'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 20px rgba(139, 92, 246, 0.3)'" onmouseout="this.style.background='#8b5cf6'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                        Sign up
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <h2>Data Usage & Privacy</h2>
-    <p>
-      Leandix AI prioritizes the security and confidentiality of your business data. Only necessary and context-specific data will be sent to the external AI server for processing. All data transfers are performed via secure encrypted HTTPS channels.
-    </p>
-    <p>
-      <strong>Data is not stored</strong> permanently on the AI server unless explicitly configured or permitted by the user. For full control, you can manage API key usage and endpoint settings under the Leandix AI configuration panel in Odoo.
-    </p>
+    <!-- About Section -->
+    <section>
+        <div class="container">
+            <div class="row justify-content-center pb-7" style="background-color: #8b5cf6;">
+                <div class="col-lg-10">
+                    <h3 class="text-white text-center mb-4 mt-6" style="color: white; text-align: center; margin-bottom: 3rem; font-size: 2.5rem; font-weight: 700;">About Leandix AI</h3>
+                    <div style="    border: 2px solid transparent;
+                                    border-radius: 15px;
+                                    background-origin: border-box;
+                                    background-clip: padding-box, border-box;
+                                    backdrop-filter: blur(50px); 
+                                    padding: 2rem;box-shadow: 
+                                    0px 4px 24px 0px #00000040;
+                                    background-image: linear-gradient(160deg, #8b5cf6 0%, #8b5cf6 5%, #2D2187 150%, #2D2187 100%), 
+                                    linear-gradient(to right, #C711E0, #2D2187);">
+                        <p style="color: white; margin-bottom: 0; font-size: 1.25rem; line-height: 1.8;">
+                            When using Leandix AI, selected business data (such as chat excerpts, relevant data fields, or contextual metadata) will be securely transmitted to a remote AI processing server (via API) for analysis and response generation. This allows the AI service to better understand your context and deliver more accurate results.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <h2>Core Features</h2>
-    <ul>
-      <li><strong>External AI Processing:</strong> Securely sends relevant Odoo data to an external AI server for intelligent analysis and real-time responses.</li>
-      <li><strong>Secure by Design:</strong> Data access and AI interactions follow strict security protocols to protect your sensitive business information.</li>
-      <li><strong>AI & User Friendly:</strong> Designed to be intuitive for end-users and optimized for interaction with modern AI models (like GPT, Claude, etc.).</li>
-      <li><strong>Deep Odoo-AI Integration:</strong> Built to help AI understand Odoo's business models, data structures, and workflows—enabling smarter automation and more relevant responses.</li>
-      <li><strong>Custom Chat UI:</strong> A sleek and responsive AI chat interface integrated directly into the Odoo backend.</li>
-      <li><strong>Multi-Model Support:</strong> Easily connect with different AI providers and switch models as needed.</li>
-    </ul>
+  <!-- Key Features Section -->
+  <section>
+      <div class="container" style="padding: 50px 0;">
+          <div class="row">
+              <div class="col-12 text-center">
+                  <h3 class="display-5 fw-bold" style="color: #2D2187;font-size: 32px;margin-bottom: 50px;">Key Features</h3>
+              </div>
+          </div>
+          <div class="row g-4">
+              <div class="col-lg-4 col-md-6">
+                  <div class="card h-100 border-2 rounded-4 p-4 d-flex flex-column justify-content-end position-relative overflow-hidden" 
+                      style="border-color: #8b5cf6; transition: all 0.3s ease;" 
+                      onmouseover="this.style.borderColor='#8b5cf6'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 40px rgba(139, 92, 246, 0.15)'" 
+                      onmouseout="this.style.borderColor='#e2e8f0'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                      <h4 class="fw-bold mb-3 fs-4" style="color: #8b5cf6;">External AI Processing</h4>
+                      <p class="text-muted mb-0 lh-base">
+                          Securely sends relevant Odoo data to an external AI server for real-time analysis and responses.
+                      </p>
+                  </div>
+              </div>
+              
+              <div class="col-lg-4 col-md-6">
+                  <div class="card h-100 border-2 rounded-4 p-4 d-flex flex-column justify-content-end position-relative overflow-hidden" 
+                      style="border-color: #8b5cf6; transition: all 0.3s ease;" 
+                      onmouseover="this.style.borderColor='#8b5cf6'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 40px rgba(139, 92, 246, 0.15)'" 
+                      onmouseout="this.style.borderColor='#e2e8f0'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                      <h4 class="fw-bold mb-3 fs-4" style="color: #8b5cf6;">Secure-by-Design</h4>
+                      <p class="text-muted mb-0 lh-base">
+                          All interactions with AI follow strict security protocols to protect sensitive business information.
+                      </p>
+                  </div>
+              </div>
+              
+              <div class="col-lg-4 col-md-6">
+                  <div class="card h-100 border-2 rounded-4 p-4 d-flex flex-column justify-content-end position-relative overflow-hidden" 
+                      style="border-color: #8b5cf6; transition: all 0.3s ease;" 
+                      onmouseover="this.style.borderColor='#8b5cf6'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 40px rgba(139, 92, 246, 0.15)'" 
+                      onmouseout="this.style.borderColor='#e2e8f0'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                      <h4 class="fw-bold mb-3 fs-4" style="color: #8b5cf6;">Custom Chat Interface</h4>
+                      <p class="text-muted mb-0 lh-base">
+                          A visually appealing, fast-responding AI chat interface integrated directly into the Odoo admin dashboard.
+                      </p>
+                  </div>
+              </div>
+              
+              <div class="col-lg-4 col-md-6">
+                  <div class="card h-100 border-2 rounded-4 p-4 d-flex flex-column justify-content-end position-relative overflow-hidden" 
+                      style="border-color: #8b5cf6; transition: all 0.3s ease;" 
+                      onmouseover="this.style.borderColor='#8b5cf6'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 40px rgba(139, 92, 246, 0.15)'" 
+                      onmouseout="this.style.borderColor='#e2e8f0'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                      <h4 class="fw-bold mb-3 fs-4" style="color: #8b5cf6;">User & AI-Friendly</h4>
+                      <p class="text-muted mb-0 lh-base">
+                          A user-friendly interface optimized for seamless interactions with models & provides users as GPT Odoo tools.
+                      </p>
+                  </div>
+              </div>
+              
+              <div class="col-lg-4 col-md-6">
+                  <div class="card h-100 border-2 rounded-4 p-4 d-flex flex-column justify-content-end position-relative overflow-hidden" 
+                      style="border-color: #8b5cf6; transition: all 0.3s ease;" 
+                      onmouseover="this.style.borderColor='#8b5cf6'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 40px rgba(139, 92, 246, 0.15)'" 
+                      onmouseout="this.style.borderColor='#e2e8f0'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                      <h4 class="fw-bold mb-3 fs-4" style="color: #8b5cf6;">Deep Odoo Integration</h4>
+                      <p class="text-muted mb-0 lh-base">
+                          Helps the AI understand your business models, data structures, and workflows within Odoo — enabling smarter automation and more context-aware responses.
+                      </p>
+                  </div>
+              </div>
+              
+              <div class="col-lg-4 col-md-6">
+                  <div class="card h-100 border-2 rounded-4 p-4 d-flex flex-column justify-content-end position-relative overflow-hidden" 
+                      style="border-color: #8b5cf6; transition: all 0.3s ease;" 
+                      onmouseover="this.style.borderColor='#8b5cf6'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 40px rgba(139, 92, 246, 0.15)'" 
+                      onmouseout="this.style.borderColor='#e2e8f0'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                      <h4 class="fw-bold mb-3 fs-4" style="color: #8b5cf6;">Multi-Model Support</h4>
+                      <p class="text-muted mb-0 lh-base">
+                          Easily connect with different AI providers and switch between models as needed.
+                      </p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
 
-    <h2>Use Case Examples</h2>
-    <ul>
-      <li>Auto-generate sales insights or reports from historical Odoo data.</li>
-      <li>Answer internal team questions using company-specific context.</li>
-      <li>Simplify onboarding by letting AI explain menus and workflows.</li>
-    </ul>
+    <!-- Data Usage & Privacy Section -->
+    <section style="background-color: #8b5cf6; padding: 55px 0;margin: 0 -15px;">
+        <div class="container flex-column d-flex align-items-center">
+            <div class="row">
+                <div class="col-12 text-center mb-3">
+                    <h3 class="display-5 fw-bold" style="color: #2D2187;font-size: 32px;color:white">Data Usage & Privacy</h3>
+                </div>
+            </div>
+            <div class="row justify-content-center mb-5">
+                <div class="col-10">
+                    <div class="text-start mx-auto" style="font-size: 18px; color: #C0C0C0;max-width: 100%;">                        <p>
+                            Leandix AI places a high priority on the security and confidentiality of your business data. Only the necessary and contextually relevant data is sent to external AI servers for processing. All data transmission is conducted over secure, encrypted HTTPS channels.
+                        </p>
+                        <p>
+                            Data is not stored permanently on AI servers unless you explicitly configure or allow it. You have full control through the Leandix AI configuration panel in Odoo, where you can manage API permissions and endpoint settings.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-4 col-11">
+                <div class="col-lg-3 col-md-6">
+                    <div style="background-color: rgba(0, 0, 0, 0.288); border-radius: 10px; text-align: center; height: 100%;">
+                        <h4 class="" style="font-size: 16px;color:white;margin: 0;padding: 10px;">Encryption via HTTPS</h4>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div style="background-color: rgba(0, 0, 0, 0.288); border-radius: 10px; text-align: center; height: 100%;">
+                        <h4 class="" style="font-size: 16px;color:white;margin: 0;padding: 10px;">No Permanent Storage</h4>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div style="background-color: rgba(0, 0, 0, 0.288); border-radius: 10px; text-align: center; height: 100%;">
+                        <h4 class="" style="font-size: 16px;color:white;margin: 0;padding: 10px;">Full Control</h4>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div style="background-color: rgba(0, 0, 0, 0.288); border-radius: 10px; text-align: center; height: 100%;">
+                        <h4 class="" style="font-size: 16px;color:white;margin: 0;padding: 10px;">Data Deletion on Request</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <h2>User Guide</h2>
-    <ul>
-      <li><strong>Permissions Required:</strong> Ensure that the user has been granted the necessary access rights to use Leandix AI features.</li>
-      <li><strong>Be as detailed as possible:</strong> When asking AI a question, try to include as much relevant detail as possible, such as:
-        <ul>
-          <li>Which module is involved?</li>
-          <li>When did the issue occur?</li>
-          <li>How many records or cases are affected?</li>
-          <li>Any related data or conditions?</li>
-        </ul>
-        Providing specific context helps the AI understand your request better and deliver more accurate responses.
-      </li>
-      <li><strong>Ensure complete setup:</strong> Make sure all required modules are installed and the system has sufficient business data for the AI to analyze and assist effectively.</li>
-      <li><strong>Note:</strong> Leandix AI may have limitations in returning very long or exhaustive results. Therefore, it’s better to ask clearly focused questions. If you want to explore all module details, it’s often more effective to review them directly in Odoo.</li>
-    </ul>
+    <!-- User Guide Section -->
+    <section style=" padding: 50px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h3 class="display-5 fw-bold" style="color: #2D2187;font-size: 32px;">User Guide</h3>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div style="background: white; border: 2px solid #e2e8f0; border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem; transition: all 0.3s ease; display: flex; align-items: start;" onmouseover="this.style.borderColor='#8b5cf6'; this.style.boxShadow='0 10px 30px rgba(139, 92, 246, 0.1)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
+                        <div class="d-none d-sm-flex" style="width: 70px; height: 70px; background: #8b5cf6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; margin-right: 1.5rem; flex-shrink: 0;">
+                            <img src="./assets/cpu.png" alt="img"/>
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                            <h4 style="font-weight: 700; margin-bottom: 5px; color: #8b5cf6; font-size: 1.5rem;">Access Rights</h4>
+                            <p style="color: #64748b; margin-bottom: 0; font-size: 1rem; line-height: 1.6;">
+                                Ensure the user has been granted the necessary access rights to use Leandix AI features.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div style="background: white; border: 2px solid #e2e8f0; border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem; transition: all 0.3s ease; display: flex; align-items: start;" onmouseover="this.style.borderColor='#8b5cf6'; this.style.boxShadow='0 10px 30px rgba(139, 92, 246, 0.1)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
+                        <div class="d-none d-sm-flex" style="width: 70px; height: 70px; background: #8b5cf6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; margin-right: 1.5rem; flex-shrink: 0;">
+                            <img src="./assets/touch.png" alt="img"/>
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                            <h4 style="font-weight: 700; margin-bottom: 5px; color: #8b5cf6; font-size: 1.5rem;">Detailed Information</h4>
+                            <p style="color: #64748b; margin-bottom: 0; font-size: 1rem; line-height: 1.6;">
+                                The more detailed the information—the model, field, number of records, conditions—the better the AI can understand and respond accurately.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div style="background: white; border: 2px solid #e2e8f0; border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem; transition: all 0.3s ease; display: flex; align-items: start;" onmouseover="this.style.borderColor='#8b5cf6'; this.style.boxShadow='0 10px 30px rgba(139, 92, 246, 0.1)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
+                        <div class="d-none d-sm-flex" style="width: 70px; height: 70px; background: #8b5cf6; color: white; border-radius: 50%; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; margin-right: 1.5rem; flex-shrink: 0;">
+                            <img src="./assets/innovation.png" alt="img"/>
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                            <h4 style="font-weight: 700; margin-bottom: 5px; color: #8b5cf6; font-size: 1.5rem;">Data Requirements</h4>
+                            <p style="color: #64748b; margin-bottom: 0; font-size: 1rem; line-height: 1.6;">
+                                All required modules should be installed and sufficient business data available for meaningful AI feedback.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div style="background: white; border: 2px solid #e2e8f0; border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem; transition: all 0.3s ease; display: flex; align-items: start;" onmouseover="this.style.borderColor='#8b5cf6'; this.style.boxShadow='0 10px 30px rgba(139, 92, 246, 0.1)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
+                        <div class="d-none d-sm-flex" style="width: 70px; height: 70px; background: #8b5cf6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; margin-right: 1.5rem; flex-shrink: 0;">
+                            <img src="./assets/nanotechnology.png" alt="img"/>
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                            <h4 style="font-weight: 700; margin-bottom: 5px; color: #8b5cf6; font-size: 1.5rem;">Usage Guidelines</h4>
+                            <p style="color: #64748b; margin-bottom: 0; font-size: 1rem; line-height: 1.6;">
+                                Leandix AI may have limitations when returning excessively long or complex results. Therefore, it's recommended to ask clear and focused questions. If you want to explore all details of a module, it's better to review them directly in Odoo.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="buttons">
-      <a class="button" href="https://leandix.com" target="_blank">Visit Website</a>
-      <a class="button" href="https://www.facebook.com/profile.php?id=61570445664479" target="_blank">Facebook Page</a>
-    </div>
-  </div>
+    <!-- Download Section -->
+    <section style="padding: 50px 0;">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h3 style="color: #C711E0; font-size: 2.5rem; font-weight: 700; margin-bottom: 30px;">Ready to integrate AI into Odoo?</h3>
+                    <p style="color: #8b5cf6; margin-bottom: 3rem; font-size: 1.25rem; opacity: 0.9;">
+                        Download Leandix AI now to experience the power of AI-driven automation and intelligent analytics—empowering you to streamline workflows and elevate the performance of your ERP system
+                    </p>
+                    
+                </div>
+                <div style="margin-top: 2rem;">
+                    <p class="w100 text-start" style="color: #c0c0c0da; opacity: 1; font-size: 1rem;line-height: 40px;">
+                        For support or inquiries, contact us at <strong>support@leandix.ai</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </body>
-
 </html>
