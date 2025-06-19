@@ -109,6 +109,8 @@ class chat_model(models.Model):
             _logger.error(f"Error in send_message_to_engine_api: {e}")
             return {"error": str(e)}
 
+
+    # (coming soon)
     # def send_message_to_engine_api(self, message, history, chat_model, user_id, error=None):
     #     try:
     #         # Lấy API key và ngôn ngữ
@@ -363,8 +365,6 @@ class chat_model(models.Model):
 
 
 
-
-
     def get_data_from_DB(self, query, **kwargs):
         # Lọc thẻ tag cho sql
         def extract_tag_content(text, tag):
@@ -530,8 +530,9 @@ class chat_model(models.Model):
                             logging.info(f"domain_list: {domain_list}")
                             has_full_access = any(domain == "[('user_id', '=', user.id)]" for domain in domain_list)
                             logging.info(f"has_full_access: {has_full_access}")
-                            # if not has_full_access i == 0:
-                            if not has_full_access and domain_list == ["[('user_id','=',user.id)]"]:
+
+                            # if not has_full_access and domain_list == ["[('user_id','=',user.id)]"]:
+                            if domain_list == ["[('user_id','=',user.id)]"]:
                                 self.env.cr.execute("""
                                     SELECT column_name
                                     FROM information_schema.columns

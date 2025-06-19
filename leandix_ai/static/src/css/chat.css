@@ -3,6 +3,16 @@
     padding: 0;
     box-sizing: border-box;
 }
+/* app modify */
+.o_form_renderer.o_form_readonly.d-flex.d-print-block.flex-nowrap.h-100.o_form_saved {
+display: flex !important;
+justify-content: center !important;
+}
+.o_form_sheet_bg{
+margin: 0 !important;
+}
+
+
 .chat_send_button[disabled] {
     opacity: 0.6;
     cursor: not-allowed;

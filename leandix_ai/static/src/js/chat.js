@@ -32,7 +32,6 @@ export class ChatController extends FormController {
         this.wait = true;
         this.DEMO = true;
         this.user_lang = await this.getUserLang();
-        console.log("this.user_lang: ",this.user_lang)
         await this.updateHeight();
         this.conversation_list = await this.getConversationList().then((result) => {
             this.value = result;
@@ -121,7 +120,6 @@ export class ChatController extends FormController {
             try {
                 // Gửi tin nhắn lên engine cho bot xử lý để lấy sql query và cú trúc message tạm thời ( phase 1 )
                 ai_response_phase_1 = await this.sendMessageToEngineAPI(userMessage) || "None ( phase 1 )";
-                console.log("ai_response_phase_1: ",ai_response_phase_1)
                 // Kiểm tra xem còn Demo Không ? ( mã 402 == demo reached, 400 == invalid key )
                 if(ai_response_phase_1 !== "DEMO_REACHED" && ai_response_phase_1 !== "API_KEY_INVALID"){
                     //Tạo conversation mới nếu là tin nhắn đầu tiên, nếu không có thì lưu vào cuộc trò chuyện hiện tại
@@ -156,17 +154,12 @@ export class ChatController extends FormController {
                         }
                     } else {
                         sql_result = await this.getDatafromDB(this.sql_query) || "None ( Phase 2 )";
-                        console.log("sql_result: ",sql_result)
                         if (sql_result?.error || sql_result.status =="error") {
                             let retryCount = 0;
                             while (retryCount < 3) {
                                 let error = sql_result.message
-                                console.log("error ,",error)
                                 ai_response_phase_1 = await this.sendMessageToEngineAPI(userMessage,error) || "None ( phase 1 )";
-                                console.log("ai_response_phase_1.5:", ai_response_phase_1);
-                                console.log("retryCount:", retryCount);
                                 sql_result = await this.getDatafromDB(this.sql_query) || "None ( Phase 2 )";
-                                console.log("sql_result: ",sql_result)
                                 // Dừng nếu trả về khác "None ( phase 1 )"
                                 if (sql_result?.error || sql_result.status !="error"){
                                         break;
@@ -230,21 +223,16 @@ export class ChatController extends FormController {
                     this.getHistory();
                 }else{
                     if(ai_response_phase_1 == "DEMO_REACHED"){
-                        console.log("ai_response_phase_1: ",ai_response_phase_1)
                         let api_type =  await this.check_api_type();
                         if(api_type = 'public'){
-                            console.log("public")
                             if (this.user_lang === "vi_vn") {
                                 botReply = 'Bạn đã hết lượt thử, hãy quay lại vào ngày mai hoặc liên hệ với <a style="color: #0084ff;" href="https://leandix.com" target="_blank">ADMIN</a> để được nâng cấp lên Pro.';
-                                console.log("botReply: ",botReply);
                             } else {
                                 botReply = 'You have reached your trial limit. Please come back tomorrow or contact <a style="color: #0084ff;" href="https://leandix.com" target="_blank">ADMIN</a> to upgrade to Pro.';
                             }
                         }else{
-                            console.log("not public")
                             if (this.user_lang === "vi_vn") {
                                 botReply = 'Bạn đã hết dung lượng sử dụng( Tokens ), hãy liên hệ với <a style="color: #0084ff;" href="https://leandix.com" target="_blank">ADMIN</a> để được hỗ trợ thêm.';
-                                console.log("botReply2: ",botReply);
                             } else {
                                 botReply = 'You have reached your usage limit (Tokens). Please contact the <a style="color: #0084ff;" href="https://leandix.com" target="_blank">ADMIN</a> for further assistance.';
                             }
@@ -273,7 +261,6 @@ export class ChatController extends FormController {
                         this.wait = false
                     }
                     if(this.wait == true || ai_response_phase_1 == "DEMO_REACHED" || ai_response_phase_1 == "API_KEY_INVALID"){
-                        console.log("success adding message")
                         chatContainer.appendChild(botMessageDiv);
                     }
                 }
@@ -301,7 +288,6 @@ export class ChatController extends FormController {
             [], 
         );
 
-        console.log("type:", response); 
         return response;
     }
 
@@ -313,7 +299,6 @@ export class ChatController extends FormController {
             [message, this.data_his || 'Tạm Thời Chưa Có History', this.chat_model, this.USER_ID, error || "None"]
         );
 
-        console.log(response);
 
         if (response == "API_KEY_INVALID" || response == "DEMO_REACHED") {
             return response
@@ -356,7 +341,6 @@ export class ChatController extends FormController {
             "send_message_to_answer_api",
             [message, sql_query, sql_result, chat_model, uid, history]
         );
-        console.log("data.answer: ",data.answer)
         return data.answer
     }
     
@@ -410,7 +394,6 @@ export class ChatController extends FormController {
             .call("leandix.ai.chat.history", "delete_conversations", [this.env.searchModel._context.uid,chatIds])
             .then(result => {
                 if (result.success) {
-                    console.log("Xóa thành công:", result.message);
                     this.data_his = [];
                 } else {
                     console.error("Xóa thất bại:", result.message);

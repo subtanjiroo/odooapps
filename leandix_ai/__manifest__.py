@@ -38,6 +38,7 @@
             'leandix_ai/static/src/css/chat.css',
             'leandix_ai/static/src/css/description.css',
             'leandix_ai/static/src/js/chat.js',
+
         ]
     },
     "images": ["static/description/icon.png"],
