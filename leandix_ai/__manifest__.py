@@ -25,7 +25,7 @@
     'maintainer': 'Canh Cam Solutions',
     'website': 'https://leandix.com',
     'support': 'info.leandix.com',
-    'price': '155',
+    'price': '199',
     'currency': 'USD',
     'depends': ['base','web','base_setup'],
     'data': [
